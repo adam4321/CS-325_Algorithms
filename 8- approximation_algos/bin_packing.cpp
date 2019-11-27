@@ -1,110 +1,115 @@
 /******************************************************************************
 **  Author:       Adam Wright 
-**  Description:  
+**  Description:  This project reads 
 ******************************************************************************/
 
 #include <iostream>
-#include <vector>
 #include <fstream>
-#include <bits/stdc++.h>
+#include <vector>
+#include <algorithm>
+#include <functional>
 
-using std::cin;
 using std::cout;
 using std::endl;
-using std::greater;
 using std::ifstream;
 using std::vector;
-
-vector<int> item_Weight_Vector;
+using std::sort;
+using std::greater;
 
 
 /*********************************************************************
 ** Description:   Defintion of 
 *********************************************************************/
-int firstFit(int capacity, vector<int> item_Weights)
+int first_fit(vector<int> &weight, int n, int c) 
+{ 
+    // Initialize result (Count of bins) 
+    int res = 0; 
+  
+    // Create an array to store remaining space in bins 
+    // there can be at most n bins 
+    vector<int> bin_rem(n); 
+  
+    // Place items one by one 
+    for (int i = 0; i < n; i++) { 
+        // Find the first bin that can accommodate weight[i] 
+        int j; 
+        for (j = 0; j < res; j++) { 
+            if (bin_rem[j] >= weight[i]) { 
+                bin_rem[j] = bin_rem[j] - weight[i]; 
+                break; 
+            } 
+        } 
+  
+        // If no bin could accommodate weight[i] 
+        if (j == res) { 
+            bin_rem[res] = c - weight[i]; 
+            res++; 
+        } 
+    } 
+    return res; 
+} 
+
+
+/*********************************************************************
+** Description:   Defintion of 
+*********************************************************************/
+int first_fit_descending(vector<int> &weight, int n, int c)
 {
-    vector<int> binCapLeft;
-    binCapLeft.push_back(capacity);
-
-    for (int i = 0; i < item_Weights.size(); i++)
-    {
-        bool canFit = true;
-
-        for (int j = 0; j < binCapLeft.size(); j++)
-        {
-            if (item_Weights[i] <= binCapLeft[j])
-            {
-                binCapLeft[j] -= item_Weights[i];
-                canFit = false;
-                break;
-            }
-        }
-
-        if (canFit == true)
-        {
-            binCapLeft.push_back(capacity);
-            binCapLeft[binCapLeft.size() - 1] -= item_Weights[i];
-        }
-    }
-
-    return binCapLeft.size();
+    // First sort all weights in decreasing order 
+    sort(weight.begin(), weight.begin() + n, greater<int>()); 
+  
+    // Now call first fit for sorted items 
+    return first_fit(weight, n, c);
 }
 
 
 /*********************************************************************
 ** Description:   Defintion of 
 *********************************************************************/
-int firstFitD(int capacity, vector<int> item_Weights)
-{
-    sort(item_Weights.begin(), item_Weights.end(), greater<int>());
-    int ffd = firstFit(capacity, item_Weights);
-    return ffd;
-}
+int best_fit(vector<int> &weight, int n, int c) 
+{ 
+    // Initialize result (Count of bins) 
+    int res = 0; 
+  
+    // Create an array to store remaining space in bins 
+    // there can be at most n bins 
+    vector<int> bin_rem(n); 
+  
+    // Place items one by one 
+    for (int i = 0; i < n; i++)
+    { 
+        // Find the best bin that can accomodate weight[i] 
+        int j; 
+  
+        // Initialize minimum space left and index of best bin 
+        int min = c + 1, bi = 0; 
+  
+        for (j = 0; j < res; j++)
+        { 
+            if (bin_rem[j] >= weight[i] && bin_rem[j] - weight[i] < min) { 
+                bi = j; 
+                min = bin_rem[j] - weight[i]; 
+            } 
+        } 
+  
+        // If no bin could accommodate weight[i] then create a new bin 
+        if (min == c + 1)
+        { 
+            bin_rem[res] = c - weight[i]; 
+            res++; 
+        } 
+        else
+        { 
+            // Assign the item to best bin 
+            bin_rem[bi] -= weight[i];
+        } 
+    } 
+    return res; 
+} 
 
 
 /*********************************************************************
-** Description:   Defintion of 
-*********************************************************************/
-int bestFit(int capacity, vector<int> item_Weights)
-{
-    vector<int> binCapLeft;
-    binCapLeft.push_back(capacity);
-    vector<int> bestbin;
-
-    for (int i = 0; i < item_Weights.size(); i++)
-    {
-        bool cantFit = true;
-
-        for (int j = 0; j < binCapLeft.size(); j++)
-        {
-            while (item_Weights[i] <= binCapLeft[j])
-            {
-                bestbin.push_back(j);
-                i++;
-            }
-
-            if (bestbin.size() >= 1)
-            {
-                int k = max(bestbin.value);
-                binCapLeft[k] -= item_Weights[i];
-                cantFit = false;
-                break;
-            }
-        }
-
-        if (cantFit == true)
-        {
-            binCapLeft.push_back(capacity);
-            binCapLeft[binCapLeft.size() - 1] -= item_Weights[i];
-        }
-    }
-
-    return binCapLeft.size();
-}
-
-
-/*********************************************************************
-** Description:   Main 
+** Description:   Main function opens the input file bin.txt
 *********************************************************************/
 int main()
 {
@@ -113,55 +118,58 @@ int main()
     inFile.open("bin.txt");
 
     cout << endl;
+    cout << "*******************************************" << endl;
+    cout << "*  Three greedy aproximations for          " << endl;
+    cout << "*  solving the bin packing problem         " << endl;
     cout << "**************************************" << endl;
-    cout << "*  Last to Start: Activity Selector  *"<< endl;
-    cout << "**************************************" << endl;
 
-    if (!inFile)
+    if (inFile.is_open())
     {
-        cout << "File does not exist" << endl;
-    }
+        int num_tests;
+        int capacity;
+        int num_items;
+        int item_weight;
+        int test_count = 1;
+        vector<int> item_weight_vector;
 
-
-    int data;
-    int num_of_test;
-    int capacity, item_weight = 0;
-    int totalItems = 0;
-    int testCasesCount = 0;
-
-    while (inFile >> num_of_test)
-    {
-        for (int i = 0; i < num_of_test; i++)
+        while (inFile >> num_tests)
         {
-            inFile >> capacity;
-            inFile >> totalItems;
-
-            for (int i = 0; i < totalItems; i++)
+            for (int i = 0; i < num_tests; i++)
             {
-                inFile >> item_weight;
+                inFile >> capacity;
+                inFile >> num_items;
 
-                item_Weight_Vector.push_back(item_weight);
+                for (int i = 0; i < num_items; i++)
+                {
+                    inFile >> item_weight;
+
+                    item_weight_vector.push_back(item_weight);
+                }
+
+                int ff = first_fit(item_weight_vector, num_items, capacity);
+                int ffd = first_fit_descending(item_weight_vector, num_items, capacity);
+                int ffb = best_fit(item_weight_vector, num_items, capacity);
+                item_weight_vector.clear();
+
+                cout << "Test Case: " << test_count;
+                cout << " First Fit: " << ff;
+                cout << ", First Fit Decreasing: " << ffd;
+                cout << "Best Fit: " << ffb;
+                cout << endl;
+
+                test_count++;
             }
-
-            testCasesCount++;
-            int ff = firstFit(capacity, item_Weight_Vector);
-            int ffd = firstFitD(capacity, item_Weight_Vector);
-            item_Weight_Vector.clear();
-
-            cout << "Test Case: "
-                 << testCasesCount
-                 << " First Fit: "
-                 << ff
-                 << ", First Fit Decreasing: "
-                 << ffd
-                 << endl;
         }
+    }
+    else
+    {
+        cout << "Error, the input file isn't open." << endl;
     }
 
     // Close the input file
     inFile.close();
 
     cout << endl;
-    
+
     return 0;
 }

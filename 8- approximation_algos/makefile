@@ -1,7 +1,7 @@
-all: packing
+all: binpack
 
 shopping: bin_packing.cpp
-	g++ -Wall -std=c++11 bin_packing.cpp -g -o packing
+	g++ -Wall -std=c++11 bin_packing.cpp -g -o binpack
 
 clean:
-	rm packing
+	rm binpack
