@@ -1,0 +1,9 @@
+MIN 21TO + 16LE + 40SP + 41CA + 585SS + 120ST + 164CP + 884OI
+ST
+    .85TO + 1.62LE + 2.86SP + .93CA + 23.4SS + 16ST + 9CP + 0OI >= 15
+    .33TO + .2LE + .39SP + .24CA + 48.7SS + 5ST + 2.6CP + 100OI >= 2
+    .33TO + .2LE + .39SP + .24CA + 48.7SS + 5ST + 2.6CP + 100OI <= 8
+    4.64TO + 2.37LE + 3.63SP + 9.58CA + 15SS + 3ST + 27CP + 0OI >= 4
+    9TO + 28LE + 65SP + 69CA + 3.8SS + 120ST + 78CP + 0OI <= 200
+    .4To - .6LE - .6SP + .4CA + .4SS + .4ST + .4CP + .4OI <= 0
+END
