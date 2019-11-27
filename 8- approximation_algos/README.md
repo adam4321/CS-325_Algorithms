@@ -6,4 +6,4 @@ Description:  Implementation for the bin packing problem
 
 -To run the program, just type the name into the commannd line from within the directory that it is in. The program is:
 
--packing
+-binpack

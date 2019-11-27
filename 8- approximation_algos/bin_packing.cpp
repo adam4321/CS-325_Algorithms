@@ -112,7 +112,7 @@ int best_fit(vector<int> &weight, int n, int c)
 
 
 /*********************************************************************
-** Description:   Main function opens the input file bin.txt
+** Description:   Main function reads from the input file bin.txt
 *********************************************************************/
 int main()
 {
@@ -124,7 +124,7 @@ int main()
     cout << "*******************************************" << endl;
     cout << "*  Three greedy aproximations for          " << endl;
     cout << "*  solving the bin packing problem         " << endl;
-    cout << "**************************************" << endl;
+    cout << "**************************************" << endl << endl;
 
     if (inFile.is_open())
     {
@@ -154,32 +154,28 @@ int main()
 
                 // Stop time and calculate duration first fit
                 auto stop = high_resolution_clock::now();
-                auto runTime = duration_cast<microseconds>(stop - start);
+                auto run_time = duration_cast<microseconds>(stop - start);
                 // Convert microseconds to seconds
-                int ff_time = runTime.count() * 0.000001;
+                int ff_time = run_time.count() * 0.000001;
 
                 // Start time first fit descending
-                auto start = high_resolution_clock::now();
+                start = high_resolution_clock::now();
                 int ffd = first_fit_descending(item_weight_vector, num_items, capacity);
 
                 // Stop time and calculate duration first fit descenting
-                auto stop = high_resolution_clock::now();
-                auto runTime = duration_cast<microseconds>(stop - start);
-                // Convert microseconds to seconds
-                int ffd_time = runTime.count() * 0.000001;
+                stop = high_resolution_clock::now();
+                run_time = duration_cast<microseconds>(stop - start);
+                int ffd_time = run_time.count() * 0.000001;
 
                 // Start time best fit
-                auto start = high_resolution_clock::now();
+                start = high_resolution_clock::now();
                 int bf = best_fit(item_weight_vector, num_items, capacity);
 
                 // Stop time and calculate duration best fit
-                auto stop = high_resolution_clock::now();
-                auto runTime = duration_cast<microseconds>(stop - start);
-                // Convert microseconds to seconds
-                int bf_time = runTime.count() * 0.000001;
+                stop = high_resolution_clock::now();
+                run_time = duration_cast<microseconds>(stop - start);
+                int bf_time = run_time.count() * 0.000001;
                 
-
-                item_weight_vector.clear();
 
                 cout << "Test Case: " << test_count << " ";
                 cout << "First Fit: " << ff << ", " <<  ff_time << "sec. ";
@@ -187,6 +183,8 @@ int main()
                 cout << "Best Fit: " << bf << ", " <<  bf_time << "sec.";
                 cout << endl;
 
+                // Clear the vector and increment the test count
+                item_weight_vector.clear();
                 test_count++;
             }
         }
