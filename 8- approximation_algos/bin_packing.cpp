@@ -8,6 +8,8 @@
 #include <vector>
 #include <algorithm>
 #include <functional>
+#include <ctime>
+#include <chrono>
 
 using std::cout;
 using std::endl;
@@ -15,6 +17,7 @@ using std::ifstream;
 using std::vector;
 using std::sort;
 using std::greater;
+using namespace std::chrono;
 
 
 /*********************************************************************
@@ -142,19 +145,46 @@ int main()
                 for (int i = 0; i < num_items; i++)
                 {
                     inFile >> item_weight;
-
                     item_weight_vector.push_back(item_weight);
                 }
 
+                // Start time first fit
+                auto start = high_resolution_clock::now();
                 int ff = first_fit(item_weight_vector, num_items, capacity);
+
+                // Stop time and calculate duration first fit
+                auto stop = high_resolution_clock::now();
+                auto runTime = duration_cast<microseconds>(stop - start);
+                // Convert microseconds to seconds
+                int ff_time = runTime.count() * 0.000001;
+
+                // Start time first fit descending
+                auto start = high_resolution_clock::now();
                 int ffd = first_fit_descending(item_weight_vector, num_items, capacity);
-                int ffb = best_fit(item_weight_vector, num_items, capacity);
+
+                // Stop time and calculate duration first fit descenting
+                auto stop = high_resolution_clock::now();
+                auto runTime = duration_cast<microseconds>(stop - start);
+                // Convert microseconds to seconds
+                int ffd_time = runTime.count() * 0.000001;
+
+                // Start time best fit
+                auto start = high_resolution_clock::now();
+                int bf = best_fit(item_weight_vector, num_items, capacity);
+
+                // Stop time and calculate duration best fit
+                auto stop = high_resolution_clock::now();
+                auto runTime = duration_cast<microseconds>(stop - start);
+                // Convert microseconds to seconds
+                int bf_time = runTime.count() * 0.000001;
+                
+
                 item_weight_vector.clear();
 
-                cout << "Test Case: " << test_count;
-                cout << " First Fit: " << ff;
-                cout << ", First Fit Decreasing: " << ffd;
-                cout << "Best Fit: " << ffb;
+                cout << "Test Case: " << test_count << " ";
+                cout << "First Fit: " << ff << ", " <<  ff_time << "sec. ";
+                cout << "First Fit Decreasing: " << ffd << ", " <<  ffd_time << "sec. ";
+                cout << "Best Fit: " << bf << ", " <<  bf_time << "sec.";
                 cout << endl;
 
                 test_count++;
