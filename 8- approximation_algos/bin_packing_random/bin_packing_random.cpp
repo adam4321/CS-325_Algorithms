@@ -40,7 +40,6 @@ int first_fit(vector<int> weight, int n, int c)
     int count = 0; 
   
     // Create an array to store remaining space in bins 
-    // there can be at most n bins 
     vector<int> bin_rem(n); 
   
     // Place items one by one 
@@ -79,7 +78,7 @@ int first_fit_descending(vector<int> weight, int n, int c)
     // First sort all weights in decreasing order 
     sort(weight.begin(), weight.begin() + n, greater<int>()); 
   
-    // Now call first fit for sorted items 
+    // Call first fit on sorted list
     return first_fit(weight, n, c);
 }
 
@@ -142,21 +141,31 @@ int main()
 
     // Declare the necessary containers
     vector<int> item_weight_vector;
-    int capacity = 10;
-    int num_items = 2000;
+    int capacity = 20;
+    int num_items = 3000;
     int test_count = 1;
+
+    // Create output files
+    ofstream ff_file;
+    ofstream ffd_file;
+    ofstream bf_file;
+
+    // Open output files 
+    ff_file.open("ff.txt");
+    ffd_file.open("ffd.txt");
+    bf_file.open("bf.txt");
 
 
     cout << endl;
-    cout << "*******************************************" << endl;
-    cout << "*         - Random inputs -                " << endl;
-    cout << "*  Three greedy aproximations for          " << endl;
-    cout << "*  solving the bin packing problem         " << endl;
+    cout << "****************************************" << endl;
+    cout << "*         - Random inputs -             " << endl;
+    cout << "*  Three greedy aproximations for       " << endl;
+    cout << "*  solving the bin packing problem      " << endl;
     cout << "**************************************";
     cout << endl << endl;
 
     // Run 20 bin packing tests
-    for (int j = 0; j < 25; j++)
+    for (int j = 0; j < 30; j++)
     {
         // Fill the vector with random numbers 0 - 10
         int i = 0;
@@ -196,25 +205,12 @@ int main()
         run_time = duration_cast<microseconds>(stop - start);
         double bf_time = run_time.count() * 0.000001;
 
-        // Create output files
-        ofstream ff_file;
-        ofstream ffd_file;
-        ofstream bf_file;
-
-        // Open output files 
-        ff_file.open("ff.txt");
-        ffd_file.open("ffd.txt");
-        bf_file.open("bf.txt");
         
         // Print values to output files
-        ff_file << test_count << ff << ff_time << '\n';
-        ffd_file << test_count << ffd << ffd_time << '\n';
-        bf_file << test_count << bf << bf_time << '\n';
+        ff_file << test_count << ' ' << ff << ' ' << ff_time << '\n';
+        ffd_file << test_count << ' ' << ffd << ' ' << ffd_time << '\n';
+        bf_file << test_count << ' ' << bf << ' ' << bf_time << '\n';
 
-        // Close output files
-        ff_file.close();
-        ffd_file.close();
-        bf_file.close();
 
         // Print output to console
         cout << "Test Case: " << test_count << " ";
@@ -225,9 +221,14 @@ int main()
 
         // Clear the vector and increment the test count
         item_weight_vector.clear();
-        num_items += 2000;
+        num_items += 3000;
         test_count++;
     }
+
+    // Close output files
+    ff_file.close();
+    ffd_file.close();
+    bf_file.close();
 
     cout << endl;
     cout << "*****************************";

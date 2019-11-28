@@ -39,7 +39,6 @@ int first_fit(vector<int> weight, int n, int c)
     int count = 0; 
   
     // Create an array to store remaining space in bins 
-    // there can be at most n bins 
     vector<int> bin_rem(n); 
   
     // Place items one by one 
@@ -78,7 +77,7 @@ int first_fit_descending(vector<int> weight, int n, int c)
     // First sort all weights in decreasing order 
     sort(weight.begin(), weight.begin() + n, greater<int>()); 
   
-    // Now call first fit for sorted items 
+    // Call first fit on sorted list
     return first_fit(weight, n, c);
 }
 
