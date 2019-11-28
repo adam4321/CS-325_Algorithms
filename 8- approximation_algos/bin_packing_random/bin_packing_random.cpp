@@ -33,7 +33,7 @@ using namespace std::chrono;
 **                bin-packing-problem-minimize-number-of-used-bins/
 **                was used to help put the algorithm together.
 *********************************************************************/
-int first_fit(vector<int> &weight, int n, int c) 
+int first_fit(vector<int> weight, int n, int c) 
 { 
     // Count of bins
     int count = 0; 
@@ -73,7 +73,7 @@ int first_fit(vector<int> &weight, int n, int c)
 **                bin-packing-problem-minimize-number-of-used-bins/
 **                was used to help put the algorithm together.
 *********************************************************************/
-int first_fit_descending(vector<int> &weight, int n, int c)
+int first_fit_descending(vector<int> weight, int n, int c)
 {
     // First sort all weights in decreasing order 
     sort(weight.begin(), weight.begin() + n, greater<int>()); 
@@ -93,7 +93,7 @@ int first_fit_descending(vector<int> &weight, int n, int c)
 **                bin-packing-problem-minimize-number-of-used-bins/
 **                was used to help put the algorithm together.
 *********************************************************************/
-int best_fit(vector<int> &weight, int n, int c) 
+int best_fit(vector<int> weight, int n, int c) 
 { 
     // Count of bins
     int count = 0; 
@@ -141,11 +141,10 @@ int main()
 
     // Declare the necessary containers
     vector<int> item_weight_vector;
-    int num_items = 3000;
     int capacity = 10;
+    int num_items = 2000;
     int test_count = 1;
-    double time;
-    int iter = 1;
+
 
     cout << endl;
     cout << "*******************************************" << endl;
@@ -155,14 +154,14 @@ int main()
     cout << "**************************************";
     cout << endl << endl;
 
-    // Run the sorting for 3,000 - 30,000
-    while (num_items <= 30000)
+    // Run 20 bin packing tests
+    for (int j = 0; j < 25; j++)
     {
-        // Fill the deque with random numbers 0 - 10,000
+        // Fill the vector with random numbers 0 - 10
         int i = 0;
         while (i < num_items)
         {
-            int random = rand() % 10000;
+            int random = rand() % 10;
             item_weight_vector.push_back(random);
             i++;
         }
@@ -176,7 +175,7 @@ int main()
         auto stop = high_resolution_clock::now();
         auto run_time = duration_cast<microseconds>(stop - start);
         // Convert microseconds to seconds
-        int ff_time = run_time.count() * 0.000001;
+        double ff_time = run_time.count() * 0.000001;
 
         // Start time first fit descending
         start = high_resolution_clock::now();
@@ -185,7 +184,7 @@ int main()
         // Stop time and calculate duration first fit descenting
         stop = high_resolution_clock::now();
         run_time = duration_cast<microseconds>(stop - start);
-        int ffd_time = run_time.count() * 0.000001;
+        double ffd_time = run_time.count() * 0.000001;
 
         // Start time best fit
         start = high_resolution_clock::now();
@@ -194,17 +193,19 @@ int main()
         // Stop time and calculate duration best fit
         stop = high_resolution_clock::now();
         run_time = duration_cast<microseconds>(stop - start);
-        int bf_time = run_time.count() * 0.000001;
+        double bf_time = run_time.count() * 0.000001;
         
 
         cout << "Test Case: " << test_count << " ";
-        cout << "First Fit: " << ff << ", " <<  ff_time << "sec. ";
-        cout << "First Fit Decreasing: " << ffd << ", " <<  ffd_time << "sec. ";
-        cout << "Best Fit: " << bf << ", " <<  bf_time << "sec.";
+        cout << "First Fit: " << ff << ", " <<  ff_time << " sec. ";
+        cout << "First Fit Decreasing: " << ffd << ", " <<  ffd_time << " sec. ";
+        cout << "Best Fit: " << bf << ", " <<  bf_time << " sec.";
         cout << endl;
 
         // Clear the vector and increment the test count
         item_weight_vector.clear();
+        num_items += 2000;
+        test_count++;
     }
 
     cout << endl;

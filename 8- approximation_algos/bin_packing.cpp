@@ -33,7 +33,7 @@ using namespace std::chrono;
 **                bin-packing-problem-minimize-number-of-used-bins/
 **                was used to help put the algorithm together.
 *********************************************************************/
-int first_fit(vector<int> &weight, int n, int c) 
+int first_fit(vector<int> weight, int n, int c) 
 { 
     // Count of bins
     int count = 0; 
@@ -73,7 +73,7 @@ int first_fit(vector<int> &weight, int n, int c)
 **                bin-packing-problem-minimize-number-of-used-bins/
 **                was used to help put the algorithm together.
 *********************************************************************/
-int first_fit_descending(vector<int> &weight, int n, int c)
+int first_fit_descending(vector<int> weight, int n, int c)
 {
     // First sort all weights in decreasing order 
     sort(weight.begin(), weight.begin() + n, greater<int>()); 
@@ -93,7 +93,7 @@ int first_fit_descending(vector<int> &weight, int n, int c)
 **                bin-packing-problem-minimize-number-of-used-bins/
 **                was used to help put the algorithm together.
 *********************************************************************/
-int best_fit(vector<int> &weight, int n, int c) 
+int best_fit(vector<int> weight, int n, int c) 
 { 
     // Count of bins
     int count = 0; 
@@ -179,7 +179,7 @@ int main()
                 auto stop = high_resolution_clock::now();
                 auto run_time = duration_cast<microseconds>(stop - start);
                 // Convert microseconds to seconds
-                int ff_time = run_time.count() * 0.000001;
+                auto ff_time = run_time.count() * 0.000001;
 
                 // Start time first fit descending
                 start = high_resolution_clock::now();
@@ -188,7 +188,7 @@ int main()
                 // Stop time and calculate duration first fit descenting
                 stop = high_resolution_clock::now();
                 run_time = duration_cast<microseconds>(stop - start);
-                int ffd_time = run_time.count() * 0.000001;
+                auto ffd_time = run_time.count() * 0.000001;
 
                 // Start time best fit
                 start = high_resolution_clock::now();
@@ -197,13 +197,13 @@ int main()
                 // Stop time and calculate duration best fit
                 stop = high_resolution_clock::now();
                 run_time = duration_cast<microseconds>(stop - start);
-                int bf_time = run_time.count() * 0.000001;
+                auto bf_time = run_time.count() * 0.000001;
                 
 
                 cout << "Test Case: " << test_count << " ";
-                cout << "First Fit: " << ff << ", " <<  ff_time << "sec. ";
-                cout << "First Fit Decreasing: " << ffd << ", " <<  ffd_time << "sec. ";
-                cout << "Best Fit: " << bf << ", " <<  bf_time << "sec.";
+                cout << "First Fit: " << ff << ", " <<  ff_time << " sec. ";
+                cout << "First Fit Decreasing: " << ffd << ", " <<  ffd_time << " sec. ";
+                cout << "Best Fit: " << bf << ", " <<  bf_time << " sec.";
                 cout << endl;
 
                 // Clear the vector and increment the test count
@@ -221,6 +221,8 @@ int main()
     in_file.close();
 
     cout << endl;
+    cout << "*****************************";
+    cout << endl << endl;
 
     return 0;
 }
