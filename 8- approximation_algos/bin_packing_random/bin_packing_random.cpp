@@ -149,6 +149,7 @@ int main()
 
     cout << endl;
     cout << "*******************************************" << endl;
+    cout << "*         - Random inputs -                " << endl;
     cout << "*  Three greedy aproximations for          " << endl;
     cout << "*  solving the bin packing problem         " << endl;
     cout << "**************************************";
