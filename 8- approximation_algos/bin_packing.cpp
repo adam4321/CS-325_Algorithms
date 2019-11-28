@@ -1,6 +1,9 @@
 /******************************************************************************
-**  Author:       Adam Wright 
-**  Description:  This project reads 
+**  Author:       Adam Wright
+**  Dage:         11/26/2019
+**  Description:  Program that reads from a text file and then tests the 
+**                runtime of three different algorithms for solving the bin
+**                packing problem.
 ******************************************************************************/
 
 #include <iostream>
@@ -21,7 +24,14 @@ using namespace std::chrono;
 
 
 /*********************************************************************
-** Description:   Defintion of 
+** Description:   Defintion of first fit function which takes three
+**                arguments. A vector of weights as integers and two 
+**                ints with the first being the number of items in 
+**                the vector and the last being the capacity of the
+**                bin for the current test case.The website Geeks for
+**                Geeks at this Url https://www.geeksforgeeks.org/
+**                bin-packing-problem-minimize-number-of-used-bins/
+**                was used to help put the algorithm together.
 *********************************************************************/
 int first_fit(vector<int> &weight, int n, int c) 
 { 
@@ -54,7 +64,14 @@ int first_fit(vector<int> &weight, int n, int c)
 
 
 /*********************************************************************
-** Description:   Defintion of 
+** Description:   Defintion of 1st fit descending function which takes
+**                3 arguments. A vector of weights as integers and two 
+**                ints with the first being the number of items in 
+**                the vector and the last being the capacity of the
+**                bin for the current test case.The website Geeks for
+**                Geeks at this Url https://www.geeksforgeeks.org/
+**                bin-packing-problem-minimize-number-of-used-bins/
+**                was used to help put the algorithm together.
 *********************************************************************/
 int first_fit_descending(vector<int> &weight, int n, int c)
 {
@@ -67,7 +84,14 @@ int first_fit_descending(vector<int> &weight, int n, int c)
 
 
 /*********************************************************************
-** Description:   Defintion of 
+** Description:   Defintion of best fit function which takes three
+**                arguments. A vector of weights as integers and two 
+**                ints with the first being the number of items in 
+**                the vector and the last being the capacity of the
+**                bin for the current test case.The website Geeks for
+**                Geeks at this Url https://www.geeksforgeeks.org/
+**                bin-packing-problem-minimize-number-of-used-bins/
+**                was used to help put the algorithm together.
 *********************************************************************/
 int best_fit(vector<int> &weight, int n, int c) 
 { 
@@ -117,8 +141,8 @@ int best_fit(vector<int> &weight, int n, int c)
 int main()
 {
     // Open the input file
-    ifstream inFile;
-    inFile.open("bin.txt");
+    ifstream in_file;
+    in_file.open("bin.txt");
 
     cout << endl;
     cout << "*******************************************" << endl;
@@ -126,7 +150,7 @@ int main()
     cout << "*  solving the bin packing problem         " << endl;
     cout << "**************************************" << endl << endl;
 
-    if (inFile.is_open())
+    if (in_file.is_open())
     {
         int num_tests;
         int capacity;
@@ -135,16 +159,16 @@ int main()
         int test_count = 1;
         vector<int> item_weight_vector;
 
-        while (inFile >> num_tests)
+        while (in_file >> num_tests)
         {
             for (int i = 0; i < num_tests; i++)
             {
-                inFile >> capacity;
-                inFile >> num_items;
+                in_file >> capacity;
+                in_file >> num_items;
 
                 for (int i = 0; i < num_items; i++)
                 {
-                    inFile >> item_weight;
+                    in_file >> item_weight;
                     item_weight_vector.push_back(item_weight);
                 }
 
@@ -195,7 +219,7 @@ int main()
     }
 
     // Close the input file
-    inFile.close();
+    in_file.close();
 
     cout << endl;
 
