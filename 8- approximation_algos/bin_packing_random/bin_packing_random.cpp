@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <stdlib.h>
 #include <vector>
 #include <algorithm>
 #include <functional>
@@ -16,11 +17,11 @@
 
 using std::cout;
 using std::endl;
-using std::ifstream;
 using std::vector;
 using std::sort;
 using std::greater;
 using namespace std::chrono;
+using std::ofstream;
 
 
 /*********************************************************************
@@ -161,7 +162,7 @@ int main()
         int i = 0;
         while (i < num_items)
         {
-            int random = rand() % 10;
+            int random = rand() % capacity;
             item_weight_vector.push_back(random);
             i++;
         }
@@ -194,8 +195,28 @@ int main()
         stop = high_resolution_clock::now();
         run_time = duration_cast<microseconds>(stop - start);
         double bf_time = run_time.count() * 0.000001;
-        
 
+        // Create output files
+        ofstream ff_file;
+        ofstream ffd_file;
+        ofstream bf_file;
+
+        // Open output files 
+        ff_file.open("ff.txt");
+        ffd_file.open("ffd.txt");
+        bf_file.open("bf.txt");
+        
+        // Print values to output files
+        ff_file << test_count << ff << ff_time << '\n';
+        ffd_file << test_count << ffd << ffd_time << '\n';
+        bf_file << test_count << bf << bf_time << '\n';
+
+        // Close output files
+        ff_file.close();
+        ffd_file.close();
+        bf_file.close();
+
+        // Print output to console
         cout << "Test Case: " << test_count << " ";
         cout << "First Fit: " << ff << ", " <<  ff_time << " sec. ";
         cout << "First Fit Decreasing: " << ffd << ", " <<  ffd_time << " sec. ";
