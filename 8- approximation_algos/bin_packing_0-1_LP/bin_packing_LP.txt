@@ -1,48 +1,17 @@
-MIN 4X1 + 4X2 + 4X3 + 6X4 + 6X5 + 6X6
+MAX 4X1 + 4X2 + 4X3 + 6X4 + 6X5 + 6X6
 ST X1 + X2 + X3 + X4 + X5 +  X6 <= 10
 END
 INT 6
 
 
-The output in Lindo should be 3 bins
+The output in Lindo should be 30 which is 3 bins
 
 
 
-MIN 20X1 + 10X2 + 15X3 + 10X4 + 5X5
+MAX 20X1 + 10X2 + 15X3 + 10X4 + 5X5
 ST X1 + X2 + X3 + X4 + X5 <= 20
 END
 INT 5
 
 
-The output in Lindo should be 3 bins
-
-
-
-
-
-MIN B
-ST 
-10B >= 30 
-4X1 + 6Y1 <= 10
-4X2 + 6Y2 <= 10
-4X3 + 6Y3 <= 10
-4X4 + 6Y4 <= 10
-4X5 + 6Y5 <= 10
-4X6 + 6Y6 <= 10
-4X1 + 4X2 + 4X3 + 4X4 + 4X5 + 4X6 + 6Y1 + 6Y2 + 6Y3 + 6Y4 + 6Y5 + 6Y6 <= 10B
-4X1 + 4X2 + 4X3 + 4X4 + 4X5 + 4X6 + 6Y1 + 6Y2 + 6Y3 + 6Y4 + 6Y5 + 6Y6 = 30
-B <= 6
-END
-INT B
-INT X1
-INT X2
-INT X3
-INT X4
-INT X5
-INT X6
-INT Y1
-INT Y2
-INT Y3
-INT Y4
-INT Y5
-INT Y6
+The output in Lindo should be 60 which is 3 bins
