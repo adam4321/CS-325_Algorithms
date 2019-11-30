@@ -1,17 +1,46 @@
-MAX 4X1 + 4X2 + 4X3 + 6X4 + 6X5 + 6X6
-ST X1 + X2 + X3 + X4 + X5 +  X6 <= 10
+
+The output in Lindo should be 30 which is 3 bins
+
+MIN 1Y1 + 1Y2 + 1Y3 + 1Y4 + 1Y5 + 1Y6
+ST
+    1Y1 + 1Y2 + 1Y3 + 1Y4 + 1Y5 + 1Y6 >= 3
+    1Y1 + 1Y2 + 1Y3 + 1Y4 + 1Y5 + 1Y6 <= 6
+    
+	X11 + X12 + X13 + X14 + X15 + X16 = 1
+    X21 + X22 + X23 + X24 + X25 + X26 = 1
+    X31 + X32 + X33 + X34 + X35 + X36 = 1
+    X41 + X42 + X43 + X44 + X45 + X46 = 1
+    X51 + X52 + X53 + X54 + X55 + X56 = 1
+    X61 + X62 + X63 + X64 + X65 + X66 = 1
+
+	4X11 + 4X12 + 4X13 + 6X14 + 6X15 + 6X16 <= 10
+    4X21 + 4X22 + 4X23 + 6X24 + 6X25 + 6X26 <= 10
+    4X31 + 4X32 + 4X33 + 6X34 + 6X35 + 6X36 <= 10
+    4X41 + 4X42 + 4X43 + 6X44 + 6X45 + 6X46 <= 10
+    4X51 + 4X52 + 4X53 + 6X54 + 6X55 + 6X56 <= 10
+    4X61 + 4X62 + 4X63 + 6X64 + 6X65 + 6X66 <= 10
 END
 INT 6
 
 
-The output in Lindo should be 30 which is 3 bins
 
+The output in Lindo should be 3 bins
 
+MIN 1Y1 + 1Y2 + 1Y3 + 1Y4 + 1Y5
+ST
+    1Y1 + 1Y2 + 1Y3 + 1Y4 + 1Y5 >= 3
+    1Y1 + 1Y2 + 1Y3 + 1Y4 + 1Y5 <= 5
+    
+	X11 + X12 + X13 + X14 + X15 = 1
+    X21 + X22 + X23 + X24 + X25 = 1
+    X31 + X32 + X33 + X34 + X35 = 1
+    X41 + X42 + X43 + X44 + X45 = 1
+    X51 + X52 + X53 + X54 + X55 = 1
 
-MAX 20X1 + 10X2 + 15X3 + 10X4 + 5X5
-ST X1 + X2 + X3 + X4 + X5 <= 20
+	20X11 + 10X12 + 15X13 + 10X14 + 5X15 <= 20
+    20X21 + 10X22 + 15X23 + 10X24 + 5X25 <= 20
+    20X31 + 10X32 + 15X33 + 10X34 + 5X35 <= 20
+    20X41 + 10X42 + 15X43 + 10X44 + 5X45 <= 20
+    20X51 + 10X52 + 15X53 + 10X54 + 5X55 <= 20
 END
 INT 5
-
-
-The output in Lindo should be 60 which is 3 bins
