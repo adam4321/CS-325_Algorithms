@@ -1,3 +1,3 @@
-# Oregon State University CS-325
+# Oregon State University CS-325 Algorithms
 
-Algorithms projects from Oregon State University. All of the projects are implemented in c++. 
+Projects from fall term of 2019 OSU CS-325. All of the projects are implemented in c++. 
